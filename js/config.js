@@ -6,8 +6,8 @@ window.MV = {
   empresa: 'M&V Desarrollo y Productividad Empresarial',
 
   // WhatsApp Empresarial: solo números, con lada de país (52) y sin el "+"
-  whatsapp: '526148406004',
-  whatsappTexto: '(+52) 614 840 6004',
+  whatsapp: '525563696445',
+  whatsappTexto: '(+52) 55 6369 6445',
   whatsappMensaje: 'Hola, me interesa solicitar el diagnóstico gratuito de M&V.',
 
   correo: '',            // p. ej. 'contacto@mvdesarrollo.com.mx' (pendiente de configurar)
