@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verificación de constancias | M&amp;V Desarrollo y Productividad Empresarial</title>
+  <meta name="description" content="Comprueba la autenticidad de una constancia emitida por M&amp;V Desarrollo y Productividad Empresarial con su número de certificado o código QR.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0F1E3D">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@400;700&family=Montserrat:wght@500;600;700;800&family=Tinos:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="verificar">
+  <div id="encabezado"></div>
+
+  <section class="hero compacto">
+    <div class="arco"></div>
+    <div class="in">
+      <div>
+        <p class="eyebrow">Verificación de constancias</p>
+        <h1>Comprueba la <span>autenticidad</span> de tu constancia</h1>
+        <p class="lead">Ingresa el número de certificado o escanea el código QR impreso en la constancia emitida por M&amp;V Desarrollo y Productividad Empresarial.</p>
+        <form class="buscar" id="formBuscar" autocomplete="off">
+          <label for="codigo" class="sr">Número de certificado</label>
+          <div class="fila-b">
+            <input type="text" id="codigo" name="c" maxlength="300" spellcheck="false" placeholder="MV-XXXX-XXXX-XXXX" required>
+            <button class="btn btn-oro" type="submit" id="btnBuscar">Verificar</button>
+          </div>
+          <p class="ayuda">El número aparece en la parte inferior de la constancia, debajo del código QR.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="resultado">
+    <div class="in" id="resultado">
+      <div class="pasos" id="pasos">
+        <div class="paso"><div class="n">01</div><h3>Escanea el código QR</h3><p>Usa la cámara de tu celular sobre el QR impreso en la constancia; te traerá directo a su verificación.</p></div>
+        <div class="paso"><div class="n">02</div><h3>O ingresa el número</h3><p>Escribe el número de certificado (MV-XXXX-XXXX-XXXX) en el buscador de arriba.</p></div>
+        <div class="paso"><div class="n">03</div><h3>Revisa el resultado</h3><p>Verás si la constancia es válida, los datos del curso y podrás descargarla en PDF.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="pie"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/sitio.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="js/verificar.js" defer></script>
+</body>
+</html>
