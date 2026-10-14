@@ -6,16 +6,15 @@
   <title>Verificación de constancias | M&amp;V Desarrollo y Productividad Empresarial</title>
   <meta name="description" content="Comprueba la autenticidad de una constancia emitida por M&amp;V Desarrollo y Productividad Empresarial con su número de certificado o código QR.">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#0F1E3D">
+  <meta name="theme-color" content="#04234A">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@400;700&family=Montserrat:wght@500;600;700;800&family=Tinos:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css?v=20261010b">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/estilos.css?v=20261014">
 </head>
 <body data-pagina="verificar">
   <div id="encabezado"></div>
 
+  <main id="contenido">
   <section class="hero compacto">
     <div class="arco"></div>
     <div class="in">
@@ -36,7 +35,7 @@
   </section>
 
   <section class="resultado">
-    <div class="in" id="resultado">
+    <div class="in" id="resultado" aria-live="polite">
       <div class="pasos" id="pasos">
         <div class="paso"><div class="n">01</div><h3>Escanea el código QR</h3><p>Usa la cámara de tu celular sobre el QR impreso en la constancia; te traerá directo a su verificación.</p></div>
         <div class="paso"><div class="n">02</div><h3>O ingresa el número</h3><p>Escribe el número de certificado (MV-XXXX-XXXX-XXXX) en el buscador de arriba.</p></div>
@@ -44,13 +43,14 @@
       </div>
     </div>
   </section>
+  </main>
 
   <div id="pie"></div>
 
-  <script src="js/config.js?v=20261010b"></script>
-  <script src="js/sitio.js?v=20261010b"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-  <script src="js/verificar.js?v=20261010b" defer></script>
+  <script src="js/config.js?v=20261014"></script>
+  <script src="js/sitio.js?v=20261014"></script>
+  <script src="js/vendor/qrious-4.0.2.min.js" defer></script>
+  <script src="js/vendor/jspdf-4.2.1.umd.min.js" defer></script>
+  <script src="js/verificar.js?v=20261014" defer></script>
 </body>
 </html>
