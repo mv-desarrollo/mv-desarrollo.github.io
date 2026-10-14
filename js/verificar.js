@@ -43,19 +43,24 @@
       h = estadoHtml('cancelada', '✕', 'No se encontró la constancia', 'No existe una constancia emitida por M&amp;V con el número <code>' + esc(codigo) + '</code>.');
     } else if (estado === 'no_verificable') {
       h = estadoHtml('cancelada', '!', 'No es posible verificar esta constancia', 'Los datos registrados no coinciden con los de emisión. Comunícate con M&amp;V para aclararlo.');
-    } else {
+    } else if (estado === 'red') {
       h = estadoHtml('aviso', '!', 'No pudimos consultar el registro', 'Revisa tu conexión e inténtalo de nuevo en unos segundos.');
+    } else {
+      h = estadoHtml('aviso', '!', 'No pudimos mostrar el resultado', 'Ocurrió un error inesperado. Inténtalo de nuevo o comunícate con M&amp;V.');
     }
     caja.innerHTML = '<div class="tarjeta">' + h + '</div>';
   }
 
   function pintarCert(r) {
     var c = r.cert;
-    var est = r.estado === 'valida'
-      ? estadoHtml('valida', '✓', 'Constancia válida', 'Esta constancia fue emitida por M&amp;V y se encuentra vigente.')
-      : r.estado === 'cancelada'
-        ? estadoHtml('cancelada', '✕', 'Constancia cancelada', 'Esta constancia fue emitida por M&amp;V, pero fue cancelada y no tiene validez.')
-        : estadoHtml('sustituida', '!', 'Constancia sustituida', 'Esta constancia fue reemplazada por una versión más reciente. Solicita al titular la constancia vigente.');
+    var ESTADOS = {
+      valida: ['valida', '✓', 'Constancia válida', 'Esta constancia fue emitida por M&amp;V y se encuentra vigente.'],
+      cancelada: ['cancelada', '✕', 'Constancia cancelada', 'Esta constancia fue emitida por M&amp;V, pero fue cancelada y no tiene validez.'],
+      sustituida: ['sustituida', '!', 'Constancia sustituida', 'Esta constancia fue reemplazada por una versión más reciente. Solicita al titular la constancia vigente.']
+    };
+    var e = ESTADOS[r.estado];
+    if (!e || !c) { pintarError('desconocido', c && c.codigo); return; }
+    var est = estadoHtml(e[0], e[1], e[2], e[3]);
     var url = urlPropia(c.codigo);
     var h = '<div class="tarjeta">' + est +
       '<div class="titular"><p class="etq">Otorgada a</p><p class="nombre">' + esc(c.nombre) + '</p>' +
@@ -88,7 +93,8 @@
       var cb = 'mvCb' + Date.now() + Math.floor(Math.random() * 1000);
       var s = document.createElement('script');
       var t = setTimeout(function () { limpiarCb(); mal(new Error('tiempo')); }, 20000);
-      function limpiarCb() { clearTimeout(t); try { delete window[cb]; } catch (e) { window[cb] = undefined; } s.remove(); }
+      // Si la respuesta llega después del tiempo límite, la función queda vacía para no generar errores
+      function limpiarCb() { clearTimeout(t); window[cb] = function () {}; s.remove(); }
       window[cb] = function (datos) { limpiarCb(); ok(datos); };
       s.onerror = function () { limpiarCb(); mal(new Error('red')); };
       s.src = C.apiVerificacion + '?formato=json&callback=' + cb + '&cert=' + encodeURIComponent(codigo);
@@ -103,9 +109,12 @@
     btn.disabled = true;
     pintarCargando();
     consultar(codigo).then(function (r) {
-      if (actualizarUrl && r && r.codigo) history.replaceState(null, '', '?c=' + encodeURIComponent(r.codigo));
-      if (r && r.cert) pintarCert(r); else pintarError(r && r.estado, r && r.codigo || codigo);
-    }).catch(function () { pintarError('red'); })
+      // Errores al pintar se distinguen de errores de red
+      try {
+        if (actualizarUrl && r && r.codigo) history.replaceState(null, '', '?c=' + encodeURIComponent(r.codigo));
+        if (r && r.cert) pintarCert(r); else pintarError(r && r.estado, r && r.codigo || codigo);
+      } catch (e) { pintarError('desconocido', codigo); }
+    }, function () { pintarError('red', codigo); })
       .then(function () { btn.disabled = false; caja.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   }
 
@@ -160,7 +169,7 @@
     }
 
     function nombreArchivo() {
-      var n = String(c.nombre || 'Constancia').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '');
+      var n = String(c.nombre || 'Constancia').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '');
       return 'Constancia_MV_' + n + '_' + c.ref + '.pdf';
     }
 

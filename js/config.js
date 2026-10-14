@@ -10,9 +10,11 @@ window.MV = {
   whatsappTexto: '(+52) 55 6369 6445',
   whatsappMensaje: 'Hola, me interesa solicitar el diagnóstico gratuito de M&V.',
 
-  correo: '',            // p. ej. 'contacto@mvdesarrollo.com.mx' (pendiente de configurar)
+  correo: 'm.vdesarrolloempresarial@gmail.com',
+  ubicacion: 'Tecámac, Estado de México',
   facebook: '',          // URL completa de la página de Facebook
   instagram: '',         // URL completa del perfil de Instagram
+  linkedin: '',          // URL completa de la página de LinkedIn
 
   // Portal de verificación (Apps Script). Debe terminar en /exec
   apiVerificacion: 'https://script.google.com/macros/s/AKfycbzn2JDnfBDMpvHE7CzXeSo2y2Kws9p2t2Co-NfyZB8UIClq0x2yXDD00gmrMQxOXaUUDw/exec'
